@@ -45,17 +45,11 @@ fuente falla. Eso es lo que se ve en el grafo.
 """
 from __future__ import annotations
 
-from curses import meta
 import gzip
 import logging
-from multiprocessing import context
 import time
 from pathlib import Path
-from turtle import pd
-from turtle import pd
 import zipfile
-
-from fastapi import params
 
 import pendulum
 from airflow.sdk import Param, PokeReturnValue, Variable, dag, task
@@ -122,7 +116,7 @@ ULTIMO_OK = FROZEN_DIR / "ultimo_ok.csv"
 
 
 @dag(
-    dag_id="tp1_5K10_G6",
+    dag_id="tp1_5K10_06",
     # Mira la fuente todos los días. `catchup=False` evita que, si el entorno
     # estuvo apagado una semana, Airflow intente recuperar las siete corridas.
     schedule="@daily",
@@ -167,7 +161,7 @@ ULTIMO_OK = FROZEN_DIR / "ultimo_ok.csv"
         ),
     },
 )
-def tp1_5K10_G6():
+def tp1_5K10_06():
 
     @task.sensor(poke_interval=300, timeout=1800, mode="reschedule",
                  soft_fail=True)
@@ -632,4 +626,4 @@ def tp1_5K10_G6():
     bundle_zip(archivo_final)
 
 
-tp1_5K10_G6()
+tp1_5K10_06()
